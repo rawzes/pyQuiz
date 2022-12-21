@@ -29,7 +29,7 @@ def read_file():
             tmp1.append(col[row].value)
 
     for row in range(0, ws.max_row):
-        for col in ws.iter_cols(1, 1):
+        for col in ws.iter_cols(2, 2):
             tmp2.append(col[row].value)
 
 
@@ -54,7 +54,7 @@ def ask_and_check(mode):
         elif mode == 2:
             print('-' * 100)
             print(f'Как называется термин {definitions[random_index]}? ')
-            answer = input()
+            answer = input('Answer: ')
             if answer in terms[random_index]:
                 print(SUCCESS)
                 print()
