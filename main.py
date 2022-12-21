@@ -8,9 +8,8 @@ menu_options = {
     3: 'Exit',
 }
 
-terms = []
-definitions = []
-
+tmp1 = []
+tmp2 = []
 SUCCESS = 'Правильно!'
 ERROR = 'Неправильно...'
 
@@ -24,32 +23,45 @@ def read_file():
     wb = openpyxl.load_workbook(file_name)
     ws = wb.active
 
-    for row in ws.iter_rows(min_row=1, max_col=1, max_row=ws.max_row):
-        for cell in row:
-            terms.append(cell.value)
-    for row in ws.iter_rows(min_row=1, min_col=2, max_row=ws.max_row):
-        for cell in row:
-            definitions.append(cell.value)
+    # Iterate the loop to read the cell values
+    for row in range(0, ws.max_row):
+        for col in ws.iter_cols(0, 1):
+            tmp1.append(col[row].value)
+
+    for row in range(0, ws.max_row):
+        for col in ws.iter_cols(1, 1):
+            tmp2.append(col[row].value)
 
 
 def ask_and_check(mode):
-    while True:
-        random_index = random.randint(0, len(terms) - 1)
-
+    terms = [i for i in tmp1 if i is not None]
+    definitions = [i for i in tmp2 if i is not None]
+    size = len(terms) - 1
+    answer = ''
+    while answer != 'x':
+        random_index = random.randint(0, size)
         if mode == 1:
-            print(f'Что такое {terms[random_index]}? ')
-            answer = input()
+            print('-' * 100)
+            print(f'What is: {terms[random_index]}?')
+            answer = input('Answer: ')
             if answer in definitions[random_index]:
                 print(SUCCESS)
+                print()
             else:
                 print(ERROR)
+                print('Правильно вот так: ' + definitions[random_index])
+                print()
         elif mode == 2:
+            print('-' * 100)
             print(f'Как называется термин {definitions[random_index]}? ')
             answer = input()
             if answer in terms[random_index]:
                 print(SUCCESS)
+                print()
             else:
                 print(ERROR)
+                print('Правильно вот так: ' + terms[random_index])
+                print()
 
 
 def start_test(mode):
