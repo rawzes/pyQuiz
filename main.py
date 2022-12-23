@@ -12,7 +12,7 @@ tmp1 = []
 tmp2 = []
 SUCCESS = 'Правильно!'
 ERROR = 'Неправильно...'
-
+EMPTY_ANSWER_ERROR = 'Ошибка! Поле не должно быть пустым!'
 
 def print_menu():
     for key in menu_options.keys():
@@ -44,28 +44,36 @@ def ask_and_check(mode):
             print('-' * 100)
             print(f'What is: {terms[random_index]}?')
             answer = input('Answer: ')
-            if answer in definitions[random_index]:
-                print(SUCCESS)
-                print()
+            if answer == '':
+                print(EMPTY_ANSWER_ERROR)
+                continue
             else:
-                print(ERROR)
-                print('Правильно вот так: ' + definitions[random_index])
-                print()
+                if answer in definitions[random_index]:
+                    print(SUCCESS)
+                    print()
+                else:
+                    print(ERROR)
+                    print('Правильно вот так: ' + definitions[random_index])
+                    print()
         elif mode == 2:
             print('-' * 100)
             print(f'Как называется термин {definitions[random_index]}? ')
             answer = input('Answer: ')
-            if answer in terms[random_index]:
-                print(SUCCESS)
-                print()
+            if answer == '':
+                print(EMPTY_ANSWER_ERROR)
+                continue
             else:
-                print(ERROR)
-                print('Правильно вот так: ' + terms[random_index])
-                print()
+                if answer in terms[random_index]:
+                    print(SUCCESS)
+                    print()
+                else:
+                    print(ERROR)
+                    print('Правильно вот так: ' + terms[random_index])
+                    print()
 
 
 def start_test(mode):
-    print('Нажми CTRL + C для выхода')
+    print('Нажми X для выхода')
     read_file()
     ask_and_check(mode)
 
