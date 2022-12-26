@@ -1,2 +1,4 @@
-[MESSAGES CONTROL]
-disable=C0116
+  [MESSAGES CONTROL]
+
+  disable=
+    missing-docstring,
