@@ -14,6 +14,7 @@ SUCCESS = 'Правильно!'
 ERROR = 'Неправильно...'
 EMPTY_ANSWER_ERROR = 'Ошибка! Поле не должно быть пустым!'
 
+
 def print_menu():
     for key in menu_options.keys():
         print(key, '--', menu_options[key])
@@ -33,6 +34,20 @@ def read_file():
             tmp2.append(col[row].value)
 
 
+def ask_question(terms, index):
+    print('-' * 100)
+    print(f'What is: {terms[index]}?')
+
+
+def get_answer():
+    answer = ''
+    while answer == '':
+        answer = input('Answer: ')
+        if answer == '':
+            print(EMPTY_ANSWER_ERROR)
+    return answer
+
+
 def ask_and_check(mode):
     terms = [i for i in tmp1 if i is not None]
     definitions = [i for i in tmp2 if i is not None]
@@ -41,35 +56,25 @@ def ask_and_check(mode):
     while answer != 'x':
         random_index = random.randint(0, size)
         if mode == 1:
-            print('-' * 100)
-            print(f'What is: {terms[random_index]}?')
-            answer = input('Answer: ')
-            if answer == '':
-                print(EMPTY_ANSWER_ERROR)
-                continue
+            ask_question(terms, random_index)
+            answer = get_answer()
+            if answer in definitions[random_index]:
+                print(SUCCESS)
+                print()
             else:
-                if answer in definitions[random_index]:
-                    print(SUCCESS)
-                    print()
-                else:
-                    print(ERROR)
-                    print('Правильно вот так: ' + definitions[random_index])
-                    print()
+                print(ERROR)
+                print('Правильно вот так: ' + definitions[random_index])
+                print()
         elif mode == 2:
-            print('-' * 100)
-            print(f'Как называется термин {definitions[random_index]}? ')
-            answer = input('Answer: ')
-            if answer == '':
-                print(EMPTY_ANSWER_ERROR)
-                continue
+            ask_question(definitions, random_index)
+            answer = get_answer()
+            if answer in terms[random_index]:
+                print(SUCCESS)
+                print()
             else:
-                if answer in terms[random_index]:
-                    print(SUCCESS)
-                    print()
-                else:
-                    print(ERROR)
-                    print('Правильно вот так: ' + terms[random_index])
-                    print()
+                print(ERROR)
+                print('Правильно вот так: ' + terms[random_index])
+                print()
 
 
 def start_test(mode):
