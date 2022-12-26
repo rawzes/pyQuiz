@@ -1,6 +1,7 @@
 """Module performs testing according to provided XLS"""
-import openpyxl
+import sys
 import random
+import openpyxl
 
 FILE_NAME = 'englishcards.xlsx'
 menu_options = {
@@ -15,15 +16,10 @@ SUCCESS = 'Правильно!'
 ERROR = 'Неправильно...'
 EMPTY_ANSWER_ERROR = 'Ошибка! Поле не должно быть пустым!'
 
-"""Prints menu"""
-
 
 def print_menu():
     for key, value_option in menu_options.items():
         print(f'{key} -- {value_option}')
-
-
-"""Reads file from disk"""
 
 
 def read_file():
@@ -40,15 +36,9 @@ def read_file():
             tmp2.append(col[row].value)
 
 
-'''Asks question'''
-
-
 def ask_question(terms, index):
     print('-' * 100)
     print(f'What is: {terms[index]}?')
-
-
-'''Receives answer from user'''
 
 
 def get_answer():
@@ -111,6 +101,6 @@ if __name__ == '__main__':
             start_test(mode=2)
         elif OPTION == 3:
             print('Thanks you for using...!')
-            exit()
+            sys.exit()
         else:
             print('Invalid option. Please enter a number between 1 and 3.')
