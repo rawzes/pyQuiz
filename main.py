@@ -1,7 +1,9 @@
-import openpyxl
+"""Module performs testing according to provided XLS"""
+import sys
 import random
+import openpyxl
 
-file_name = 'englishcards.xlsx'
+FILE_NAME = 'englishcards.xlsx'
 menu_options = {
     1: 'Random terms',
     2: 'Random definitions',
@@ -16,21 +18,21 @@ EMPTY_ANSWER_ERROR = 'Ошибка! Поле не должно быть пуст
 
 
 def print_menu():
-    for key in menu_options.keys():
-        print(key, '--', menu_options[key])
+    for key, value_option in menu_options.items():
+        print(f'{key} -- {value_option}')
 
 
 def read_file():
-    wb = openpyxl.load_workbook(file_name)
-    ws = wb.active
+    work_book = openpyxl.load_workbook(FILE_NAME)
+    work_sheet = work_book.active
 
     # Iterate the loop to read the cell values
-    for row in range(0, ws.max_row):
-        for col in ws.iter_cols(0, 1):
+    for row in range(0, work_sheet.max_row):
+        for col in work_sheet.iter_cols(0, 1):
             tmp1.append(col[row].value)
 
-    for row in range(0, ws.max_row):
-        for col in ws.iter_cols(2, 2):
+    for row in range(0, work_sheet.max_row):
+        for col in work_sheet.iter_cols(2, 2):
             tmp2.append(col[row].value)
 
 
@@ -86,19 +88,19 @@ def start_test(mode):
 if __name__ == '__main__':
     while True:
         print_menu()
-        option = ''
+        OPTION = ''
         try:
-            option = int(input('Enter your choice: '))
-        except:
+            OPTION = int(input('Enter your choice: '))
+        except ValueError:
             print('Wrong input. Please enter a number ...')
 
         # Check what choice was entered and act accordingly
-        if option == 1:
+        if OPTION == 1:
             start_test(mode=1)
-        elif option == 2:
+        elif OPTION == 2:
             start_test(mode=2)
-        elif option == 3:
+        elif OPTION == 3:
             print('Thanks you for using...!')
-            exit()
+            sys.exit()
         else:
             print('Invalid option. Please enter a number between 1 and 3.')
