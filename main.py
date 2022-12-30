@@ -88,7 +88,7 @@ def start_test(mode, name):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--name', type=str, required=True)
+    parser.add_argument('--name', '-n', type=str, required=True, help='Path to file with questions')
     args = parser.parse_args()
     while True:
         print_menu()
