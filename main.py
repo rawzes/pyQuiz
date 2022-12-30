@@ -2,6 +2,8 @@
 import sys
 import random
 import openpyxl
+from validators.validate import validate_answer
+from messages.messages import *
 
 FILE_NAME = 'englishcards.xlsx'
 menu_options = {
@@ -12,9 +14,6 @@ menu_options = {
 
 tmp1 = []
 tmp2 = []
-SUCCESS = 'Правильно!'
-ERROR = 'Неправильно...'
-EMPTY_ANSWER_ERROR = 'Ошибка! Поле не должно быть пустым!'
 
 
 def print_menu():
@@ -60,23 +59,25 @@ def ask_and_check(mode):
         if mode == 1:
             ask_question(terms, random_index)
             answer = get_answer()
-            if answer in definitions[random_index]:
-                print(SUCCESS)
-                print()
-            else:
-                print(ERROR)
-                print('Правильно вот так: ' + definitions[random_index])
-                print()
+            if validate_answer(answer, definitions[random_index]):
+                if answer in terms[random_index]:
+                    print(SUCCESS)
+                    print()
+                else:
+                    print(ERROR)
+                    print('Правильно вот так: ' + definitions[random_index])
+                    print()
         elif mode == 2:
             ask_question(definitions, random_index)
             answer = get_answer()
-            if answer in terms[random_index]:
-                print(SUCCESS)
-                print()
-            else:
-                print(ERROR)
-                print('Правильно вот так: ' + terms[random_index])
-                print()
+            if validate_answer(answer, definitions[random_index]):
+                if answer in terms[random_index]:
+                    print(SUCCESS)
+                    print()
+                else:
+                    print(ERROR)
+                    print('Правильно вот так: ' + terms[random_index])
+                    print()
 
 
 def start_test(mode):
