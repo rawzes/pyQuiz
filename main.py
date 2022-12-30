@@ -60,7 +60,7 @@ def ask_and_check(mode):
             ask_question(terms, random_index)
             answer = get_answer()
             if validate_answer(answer, definitions[random_index]):
-                if answer in terms[random_index]:
+                if answer in definitions[random_index]:
                     print(SUCCESS)
                     print()
                 else:
@@ -70,7 +70,7 @@ def ask_and_check(mode):
         elif mode == 2:
             ask_question(definitions, random_index)
             answer = get_answer()
-            if validate_answer(answer, definitions[random_index]):
+            if validate_answer(answer, terms[random_index]):
                 if answer in terms[random_index]:
                     print(SUCCESS)
                     print()
