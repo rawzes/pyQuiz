@@ -6,4 +6,6 @@
  
 # How to use:
 
-run: run python main.py
+How to run: run python main.py --name <file_name>
+
+Example: python main.py --name=englishcards.xlsx
