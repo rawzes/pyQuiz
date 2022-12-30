@@ -1,11 +1,11 @@
 """Module performs testing according to provided XLS"""
 import sys
 import random
+import argparse
 import openpyxl
 from validators.validate import validate_answer
 from messages.messages import *
 
-FILE_NAME = 'englishcards.xlsx'
 menu_options = {
     1: 'Random terms',
     2: 'Random definitions',
@@ -21,8 +21,8 @@ def print_menu():
         print(f'{key} -- {value_option}')
 
 
-def read_file():
-    work_book = openpyxl.load_workbook(FILE_NAME)
+def read_file(f_name):
+    work_book = openpyxl.load_workbook(f_name)
     work_sheet = work_book.active
 
     # Iterate the loop to read the cell values
@@ -80,13 +80,16 @@ def ask_and_check(mode):
                     print()
 
 
-def start_test(mode):
+def start_test(mode, name):
     print('Нажми X для выхода')
-    read_file()
+    read_file(name)
     ask_and_check(mode)
 
 
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--name', '-n', type=str, required=True, help='Path to file with questions')
+    args = parser.parse_args()
     while True:
         print_menu()
         OPTION = ''
@@ -95,11 +98,11 @@ if __name__ == '__main__':
         except ValueError:
             print('Wrong input. Please enter a number ...')
 
-        # Check what choice was entered and act accordingly
         if OPTION == 1:
-            start_test(mode=1)
+            print(args.name)
+            start_test(1, args.name)
         elif OPTION == 2:
-            start_test(mode=2)
+            start_test(2, args.name)
         elif OPTION == 3:
             print('Thanks you for using...!')
             sys.exit()
