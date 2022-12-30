@@ -13,7 +13,6 @@ def validate_answer(answer, correct_answer):
 
 
 def validate_length(user_length, correct_length):
-    print(f'\n{user_length}, {correct_length}')
     is_checked = False
     if correct_length // user_length > 2:
         is_checked = False
