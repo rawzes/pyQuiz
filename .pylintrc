@@ -4,3 +4,5 @@ init-hook="from pylint.config import find_pylintrc; import os, sys, random, open
 [MESSAGES CONTROL]
 disable=
     missing-docstring,
+    W0401,
+    W0614,
